@@ -53,6 +53,7 @@
 }
 #name:checked ~ .name {
   display:block;
+}
 #email:checked ~ .email {
   display:block;
 }
