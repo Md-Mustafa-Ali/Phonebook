@@ -2,6 +2,12 @@
 <?php 
 ob_start();
 session_start();
+if(!isset($_SESSION['user']))
+    header("location:home.php");
+if(isset($_GET['logout']))
+  {  session_destroy();
+     header("location:home.php");  
+  }
 ?>
 <html>
 <head>
@@ -95,6 +101,9 @@ session_start();
 ?>
 <body>
 <h1 style="color: #000099;margin-top: 50px;text-align: center;padding-bottom: 70px">phonebook</h1>
+<form method="get">
+  <input type="submit" style="margin-right:40px;margin-top:-130px;float:right;color: red;background-color: #56baed;border-radius: 10px" class="button" name="logout" value="Logout">
+</form>
 <div class="wrapper">
   <div>
     <div style="margin-left: 90px">

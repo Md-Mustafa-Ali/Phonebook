@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+ob_start();
+session_start();
+?>
 <html>
 <head>
 <title>Phonebook</title>
@@ -48,6 +52,9 @@
   transform: scale(1.03);
   transition: transform 0.3s;
 }
+::placeholder {
+  text-align:center;
+}
 </style>
 <?php
      if(isset($_POST['submit']))
@@ -63,7 +70,8 @@
                { $query="SELECT * FROM user WHERE id='".$uid."'";
                  $result=mysqli_fetch_assoc(mysqli_query($conn,$query));
                  if($result['pass']==$pass)
-                   { header("location:dashboard.php");
+                   {  $_SESSION['user']=$pass;
+                      header("location:dashboard.php");
                    }
                  else
                    echo '<script>alert("Wrong Password")</script>';
@@ -83,9 +91,6 @@
       <input type="password" id="password" class="field" name="pass" placeholder="password"><br>
       <input type="submit" class="button" name="submit" value="Log In">
     </form>
-    <div id="formFooter">
-      <a href="#">Forgot Password?</a>
-    </div>
   </div>
 </div>
 </body>

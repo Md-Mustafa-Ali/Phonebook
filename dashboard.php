@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<?php 
+ob_start();
+session_start();
+if(!isset($_SESSION['user']))
+    header("location:home.php");
+if(isset($_GET['logout']))
+  {  session_destroy();
+     header("location:home.php");  
+  }
+?>
 <html>
 <head>
 <title>Phonebook</title>
@@ -37,9 +47,30 @@ a {
   text-decoration: none;
   color: black;
 }
+.button {
+  height: 45px;
+  width: 150px;
+  margin-left: 120px;
+  border-radius: 10px;
+  border: none;
+  color: red;
+  background-color: #56baed;
+}
+.button:hover {
+  height: 45px;
+  width: 150px;
+  background-color: #56baed;
+  transform: scale(1.03);
+  transition: transform 0.3s;
+}
 </style>
 <body>
+<div>
 <h1 style="color: #000099;margin-top: 50px;text-align: center;padding-bottom: 70px">phonebook</h1>
+<form method="get">
+  <input type="submit" style="margin-right:40px;margin-top:-130px;float:right" class="button" name="logout" value="Logout">
+</form>
+</div>
 <a href="add.php">
  <div class="wrapper one">
    <p>Add contact</p>

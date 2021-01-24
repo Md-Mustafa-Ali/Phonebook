@@ -2,12 +2,18 @@
 <?php 
 ob_start();
 session_start();
+if(!isset($_SESSION['user']))
+    header("location:home.php");
+if(isset($_GET['logout']))
+  {  session_destroy();
+     header("location:home.php");  
+  }
 if(isset($_SESSION['name']))
  { $conn=new mysqli("localhost","root","","phonebook");
    if($conn->connect_error)
      die("Connection failed:".$conn->connect_error);
    else
-     { $query="SELECT * FROM contact WHERE name='".$_SESSION['email']."'";
+     { $query="SELECT * FROM contact WHERE name='".$_SESSION['name']."'";
        $result=$conn->query($query);
        $row=$result->num_rows;
      }
@@ -40,9 +46,28 @@ if(isset($_SESSION['email']))
   padding: 20px;
   padding-bottom: 50px;
 }
+.button {
+  height: 45px;
+  width: 150px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 40px;
+  color: red;
+  background-color: #56baed;
+}
+.button:hover {
+  height: 45px;
+  width: 150px;
+  background-color: #56baed;
+  transform: scale(1.03);
+  transition: transform 0.3s;
+}
 </style>
 <body>
-<h1 style="color: #000099;margin-top: 30px;text-align: center;padding-bottom: 10px">phonebook</h1>
+<form method="get">
+   <input type="submit" style="margin-left: 1100px" class="button" name="logout" value="Logout">
+</form>
+<h1 style="color: #000099;margin-top: -40px;text-align: center;padding-bottom: 30px">phonebook</h1>
 <div class="wrapper">
   <div>
     <div style="margin-left: 560px">
@@ -73,7 +98,7 @@ if(isset($_SESSION['email']))
       }
   ?>
   </div>
-  </table>    
+  </table>   
   </div>
 </div>
 </body>
